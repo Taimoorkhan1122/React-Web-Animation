@@ -2,7 +2,7 @@ import useWebAnimations from "@wellyshen/use-web-animations";
 import "./style.css";
 
 const App = () => {
-  const { ref, getAnimation } = useWebAnimations({
+  const { ref: refAlice } = useWebAnimations({
     keyframes: { transform: ["translateY(0)", "translateY(-100%)"] },
     timing: {
       easing: "steps(7, end)",
@@ -12,21 +12,53 @@ const App = () => {
       playbackRate: 1,
     },
   });
+
+  const { ref: refSceneBack } = useWebAnimations({
+    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
+    timing: {
+      duration: 36000,
+      iterations: Infinity,
+    },
+  });
+
+  const { ref: refSceneBack2 } = useWebAnimations({
+    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
+    timing: {
+      duration: 36000,
+      iterations: Infinity,
+    },
+  });
+
+  const { ref: refSceneFore } = useWebAnimations({
+    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
+    timing: {
+      duration: 12000,
+      iterations: Infinity,
+    },
+  });
+
+  const { ref: refSceneFore2 } = useWebAnimations({
+    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
+    timing: {
+      duration: 12000,
+      iterations: Infinity,
+    },
+  });
   return (
     <>
-      <div class="sky"></div>
-      <div class="earth">
+      <div className="sky"></div>
+      <div className="earth">
         <div id="red-queen_and_alice">
           <img
+            ref={refAlice}
             id="red-queen_and_alice_sprite"
             src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen_small.png"
-            srcset="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/sprite_running-alice-queen.png 2x"
             alt="Alice and the Red Queen running to stay in place."
           />
         </div>
       </div>
 
-      <div class="scenery" id="foreground1">
+      <div ref={refSceneFore} className="scenery" id="foreground1">
         <img
           id="palm3"
           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/palm3_small.png"
@@ -34,7 +66,7 @@ const App = () => {
           alt=" "
         />
       </div>
-      <div class="scenery" id="foreground2">
+      <div ref={refSceneFore2} className="scenery" id="foreground2">
         <img
           id="bush"
           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/bush_small.png"
@@ -48,7 +80,7 @@ const App = () => {
           alt=" "
         />
       </div>
-      <div class="scenery" id="background1">
+      <div ref={refSceneBack} className="scenery" id="background1">
         <img
           id="r_pawn_upright"
           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/r_pawn_upright_small.png"
@@ -68,7 +100,7 @@ const App = () => {
           alt=" "
         />
       </div>
-      <div class="scenery" id="background2">
+      <div ref={refSceneBack2} className="scenery" id="background2">
         <img
           id="r_pawn"
           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/641/r_pawn_small.png"

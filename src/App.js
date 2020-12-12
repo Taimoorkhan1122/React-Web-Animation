@@ -2,53 +2,93 @@ import useWebAnimations from "@wellyshen/use-web-animations";
 import "./style.css";
 
 const App = () => {
-  const { ref: refAlice } = useWebAnimations({
+  const { ref: refAlice, getAnimation } = useWebAnimations({
+    playbackRate: 1,
     keyframes: { transform: ["translateY(0)", "translateY(-100%)"] },
     timing: {
       easing: "steps(7, end)",
       duration: 600,
       iterations: Infinity,
       direction: "reverse",
-      playbackRate: 1,
     },
   });
 
-  const { ref: refSceneBack } = useWebAnimations({
+  // scene animations
+  // Background animations
+  const backAnimation = {
     keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
     timing: {
       duration: 36000,
       iterations: Infinity,
     },
-  });
+  };
 
-  const { ref: refSceneBack2 } = useWebAnimations({
-    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
-    timing: {
-      duration: 36000,
-      iterations: Infinity,
-    },
-  });
+  const {
+    ref: refSceneBack,
+    getAnimation: getBackAnimation,
+  } = useWebAnimations(backAnimation);
 
-  const { ref: refSceneFore } = useWebAnimations({
-    keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
-    timing: {
-      duration: 12000,
-      iterations: Infinity,
-    },
-  });
+  const {
+    ref: refSceneBack2,
+    getAnimation: getBackAnimation2,
+  } = useWebAnimations(backAnimation);
 
-  const { ref: refSceneFore2 } = useWebAnimations({
+  //Foreground animation
+  const foreAnimation = {
     keyframes: { transform: ["translateX(100%)", "translateX(-100%)"] },
     timing: {
       duration: 12000,
       iterations: Infinity,
     },
-  });
+  };
+
+  const {
+    ref: refSceneFore,
+    getAnimation: getForeAnimation,
+  } = useWebAnimations(foreAnimation);
+
+  const {
+    ref: refSceneFore2,
+    getAnimation: getForeAnimation2,
+  } = useWebAnimations(foreAnimation);
+
+  const getAnimationList = [
+    getAnimation,
+    getForeAnimation,
+    getForeAnimation2,
+    getBackAnimation,
+    getBackAnimation2,
+  ];
+  //Speed up animation
+  const speedUp = () => {
+    getAnimationList.forEach((anim) => {
+      const animation = anim();
+      animation.updatePlaybackRate((animation.playbackRate *= 1.2));
+      console.log(animation.playbackRate);
+    });
+    setInterval(speedDown, 3000);
+  };
+
+  let count = 0;
+  const speedDown = () => {
+    console.log("getAnimation.playbackRate");
+
+    getAnimationList.forEach((anim, index) => {
+      const animation = anim();
+
+      if (animation.playbackRate > 0.6) {
+        console.log(index, animation.playbackRate);
+        animation.playbackRate = animation.playbackRate - 0.25;
+      }
+    });
+  };
+
   return (
     <>
       <div className="sky"></div>
+
       <div className="earth">
-        <div id="red-queen_and_alice">
+        <div id="red-queen_and_alice" onClick={() => speedUp()}>
           <img
             ref={refAlice}
             id="red-queen_and_alice_sprite"
@@ -57,7 +97,6 @@ const App = () => {
           />
         </div>
       </div>
-
       <div ref={refSceneFore} className="scenery" id="foreground1">
         <img
           id="palm3"

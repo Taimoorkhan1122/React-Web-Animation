@@ -23,7 +23,7 @@ jobs:
       - name: Install surge
         run: npm install -g surge
       - name: Run Surge
-        run: surge ./build react-store-taimoor.surge.sh --token ${{secrets.MY_SECRET}} 
+        run: surge ./build react-webanimation-taimoor.surge.sh --token ${{secrets.MY_SECRET}} 
 
 
 

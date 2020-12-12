@@ -1,4 +1,4 @@
-name: Shoe-Store
+name: React Web Animation
 
 on: [push]
 
@@ -24,6 +24,8 @@ jobs:
         run: npm install -g surge
       - name: Run Surge
         run: surge ./build react-webanimation-taimoor.surge.sh --token ${{secrets.MY_SECRET}} 
+
+       
 
 
 

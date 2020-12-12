@@ -64,14 +64,13 @@ const App = () => {
     getAnimationList.forEach((anim) => {
       const animation = anim();
       animation.updatePlaybackRate((animation.playbackRate *= 1.2));
-      console.log(animation.playbackRate);
+      // console.log(animation.playbackRate);
     });
     setInterval(speedDown, 3000);
   };
 
-  let count = 0;
   const speedDown = () => {
-    console.log("getAnimation.playbackRate");
+    // console.log("getAnimation.playbackRate");
 
     getAnimationList.forEach((anim, index) => {
       const animation = anim();

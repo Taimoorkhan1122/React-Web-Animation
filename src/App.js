@@ -64,10 +64,11 @@ const App = () => {
   let [flag, setFlag] = useState(false);
 
   useEffect(() => {
+    console.log("effect running");
     if (flag) {
       setInterval(speedDown, 3000);
     }
-  }, [flag]);
+  });
 
   //Speed up animation
   const speedUp = () => {

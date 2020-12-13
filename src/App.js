@@ -63,7 +63,7 @@ const App = () => {
   const speedUp = () => {
     getAnimationList.forEach((anim) => {
       const animation = anim();
-      animation.updatePlaybackRate((animation.playbackRate *= 1.2));
+      animation.updatePlaybackRate((animation.playbackRate += 0.75));
       // console.log(animation.playbackRate);
     });
     setInterval(speedDown, 3000);

@@ -1,4 +1,5 @@
 import useWebAnimations from "@wellyshen/use-web-animations";
+import { useState, useEffect } from "react";
 import "./style.css";
 
 const App = () => {
@@ -59,14 +60,23 @@ const App = () => {
     getBackAnimation,
     getBackAnimation2,
   ];
+
+  let [flag, setFlag] = useState(false);
+
+  useEffect(() => {
+    if (flag) {
+      setInterval(speedDown, 3000);
+    }
+  }, [flag]);
+
   //Speed up animation
   const speedUp = () => {
+    setFlag(true);
     getAnimationList.forEach((anim) => {
       const animation = anim();
       animation.updatePlaybackRate((animation.playbackRate += 0.75));
       // console.log(animation.playbackRate);
     });
-    setInterval(speedDown, 3000);
   };
 
   const speedDown = () => {
